@@ -9,10 +9,29 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
-    <title>Автонарушители job4j</title>
+    <title>Автомобильные инциденты</title>
 </head>
 <body>
-<div class="container mt-2">
-    <h3>Проект job4j_автонарушители, выполняемый в рамках курса Job4j</h3>
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Job4jAccidents</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav me-auto">
+                </div>
+                <div class="d-flex" th:if="${user == 'Гость'}">
+                    <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Регистрация</a>
+                    <a class="nav-link text-secondary" th:href="@{/users/login}">Войти</a>
+                </div>
+                <div class="d-flex" th:if="${user != 'Гость'}">
+                    <a class="nav-link text-secondary me-3" href="#" th:text="${user}"></a>
+                    <a class="nav-link text-secondary" th:href="@{/users/logout}">Выйти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-2">
+        <h3>Проект job4j_автонарушители, выполняемый в рамках курса Job4j</h3>
+    </div>
 </div>
 </body>
