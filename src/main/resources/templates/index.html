@@ -32,6 +32,24 @@
     </nav>
     <div class="container mt-2">
         <h3>Проект job4j_автонарушители, выполняемый в рамках курса Job4j</h3>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="100" scope="col">Название</th>
+                    <th width="200" scope="col">Описание происшествия</th>
+                    <th width="100" scope="col">Адрес</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="accident: ${accidents}" >
+                    <td th:text="${accident.name}" />
+                    <td th:text="${accident.text}" />
+                    <td th:text="${accident.address}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
