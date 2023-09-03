@@ -14,13 +14,6 @@ public class MemAccidentRepository implements AccidentRepository {
     private AtomicInteger nextId = new AtomicInteger(1);
     private final ConcurrentHashMap<Integer, Accident> store = new ConcurrentHashMap<>();
 
-    public MemAccidentRepository() {
-        save(new Accident(0, "name1", "text1", "address1"));
-        save(new Accident(0, "name2", "text2", "address2"));
-        save(new Accident(0, "name3", "text3", "address3"));
-
-    }
-
     @Override
     public Accident save(Accident accident) {
         accident.setId(nextId.getAndIncrement());

@@ -12,20 +12,14 @@
     <title>Автомобильные инциденты</title>
 </head>
 <body>
-<div class="container-fluid p-0">
+<div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/">Job4jAccidents</a>
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav me-auto">
-                </div>
-                <div class="d-flex" th:if="${user == 'Гость'}">
-                    <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Регистрация</a>
-                    <a class="nav-link text-secondary" th:href="@{/users/login}">Войти</a>
-                </div>
-                <div class="d-flex" th:if="${user != 'Гость'}">
-                    <a class="nav-link text-secondary me-3" href="#" th:text="${user}"></a>
-                    <a class="nav-link text-secondary" th:href="@{/users/logout}">Выйти</a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="/">Главная</a>
+                    <a class="nav-item nav-link" th:href="@{/accident/createAccident}">Добавить Инцидент</a>
                 </div>
             </div>
         </div>
@@ -43,12 +37,15 @@
                 </thead>
                 <tbody>
                 <tr th:each="accident: ${accidents}" >
-                    <td th:text="${accident.name}" />
+                    <td><a th:text="${accident.name}" th:href="@{/accident/{accidentId}(accidentId=${accident.id})}"></a></td>
                     <td th:text="${accident.text}" />
                     <td th:text="${accident.address}" />
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="row">
+            <div class="col-6"><a class="btn btn-primary w-40" th:href="@{/accident/createAccident}">Добавить инцидент</a></div>
         </div>
     </div>
 </div>
