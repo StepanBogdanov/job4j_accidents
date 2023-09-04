@@ -28,19 +28,31 @@ public class AccidentController {
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         var accidentOptional = accidentService.findById(id);
+        if (accidentOptional.isEmpty()) {
+            model.addAttribute("message", "Инцидент с данным ID не найден");
+            return "error/404";
+        }
         model.addAttribute("accident", accidentOptional.get());
         return "accident/editAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident) {
-        accidentService.update(accident);
+    public String update(@ModelAttribute Accident accident, Model model) {
+        var isUpdated = accidentService.update(accident);
+        if (!isUpdated) {
+            model.addAttribute("message", "Не удалось обновить инцидент с данным ID");
+            return "error/404";
+        }
         return "redirect:/index";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
-        accidentService.delete(id);
+    public String delete(@PathVariable int id, Model model) {
+        var isDeleted = accidentService.delete(id);
+        if (!isDeleted) {
+            model.addAttribute("message", "Не удалось удалить инцидент с данным ID");
+            return "error/404";
+        }
         return "redirect:/index";
     }
 }
