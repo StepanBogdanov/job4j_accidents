@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,5 +23,10 @@ public class MemAccidentTypeRepository implements AccidentTypeRepository {
     @Override
     public Collection<AccidentType> findAll() {
         return store.values();
+    }
+
+    @Override
+    public Optional<AccidentType> findById(int id) {
+        return Optional.ofNullable(store.get(id));
     }
 }
