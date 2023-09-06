@@ -25,7 +25,7 @@ public class MemAccidentRepository implements AccidentRepository {
     public boolean update(Accident accident) {
         return store.computeIfPresent(accident.getId(), (id, oldAccident) -> new Accident(
                 oldAccident.getId(), accident.getName(), accident.getText(),
-                accident.getAddress(), accident.getType())) != null;
+                accident.getAddress(), accident.getType(), accident.getRules())) != null;
     }
 
     @Override

@@ -5,8 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeService;
+import ru.job4j.accidents.service.RuleService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -15,16 +21,24 @@ public class AccidentController {
 
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
+    private final RuleService ruleService;
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidentTypeService.findAll());
+        model.addAttribute("rules", ruleService.findAll());
         return "accident/createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id, Model model) {
+    public String save(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id,
+                       @RequestParam List<Integer> rIds, Model model) {
         accident.setType(accidentTypeService.findById(id).get());
+        Set<Rule> rules = new HashSet<>();
+        for (Integer rId : rIds) {
+            rules.add(ruleService.findById(rId).get());
+        }
+        accident.setRules(rules);
         accidentService.save(accident);
         return "redirect:/index";
     }
@@ -38,12 +52,19 @@ public class AccidentController {
         }
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentTypeService.findAll());
+        model.addAttribute("rules", ruleService.findAll());
         return "accident/editAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id, Model model) {
+    public String update(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id,
+                         @RequestParam List<Integer> rIds, Model model) {
         accident.setType(accidentTypeService.findById(id).get());
+        Set<Rule> rules = new HashSet<>();
+        for (Integer rId : rIds) {
+            rules.add(ruleService.findById(rId).get());
+        }
+        accident.setRules(rules);
         var isUpdated = accidentService.update(accident);
         if (!isUpdated) {
             model.addAttribute("message", "Не удалось обновить инцидент с данным ID");
