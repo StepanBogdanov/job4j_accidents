@@ -4,7 +4,9 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,5 +30,14 @@ public class MemRuleRepository implements RuleRepository {
     @Override
     public Optional<Rule> findById(int id) {
         return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public Set<Rule> findByIds(Set<Integer> ids) {
+        Set<Rule> rules = new HashSet<>();
+        for (Integer id : ids) {
+            rules.add(store.get(id));
+        }
+        return rules;
     }
 }

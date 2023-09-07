@@ -31,12 +31,8 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam List<Integer> rIds, Model model) {
-        Set<Rule> rules = new HashSet<>();
-        for (Integer rId : rIds) {
-            rules.add(ruleService.findById(rId).get());
-        }
-        accident.setRules(rules);
+    public String save(@ModelAttribute Accident accident, @RequestParam Set<Integer> rIds) {
+        accidentService.setRules(accident, rIds);
         accidentService.save(accident);
         return "redirect:/index";
     }
@@ -55,12 +51,8 @@ public class AccidentController {
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident, @RequestParam List<Integer> rIds, Model model) {
-        Set<Rule> rules = new HashSet<>();
-        for (Integer rId : rIds) {
-            rules.add(ruleService.findById(rId).get());
-        }
-        accident.setRules(rules);
+    public String update(@ModelAttribute Accident accident, @RequestParam Set<Integer> rIds, Model model) {
+        accidentService.setRules(accident, rIds);
         var isUpdated = accidentService.update(accident);
         if (!isUpdated) {
             model.addAttribute("message", "Не удалось обновить инцидент с данным ID");
