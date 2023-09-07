@@ -31,9 +31,7 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id,
-                       @RequestParam List<Integer> rIds, Model model) {
-        accident.setType(accidentTypeService.findById(id).get());
+    public String save(@ModelAttribute Accident accident, @RequestParam List<Integer> rIds, Model model) {
         Set<Rule> rules = new HashSet<>();
         for (Integer rId : rIds) {
             rules.add(ruleService.findById(rId).get());
@@ -57,9 +55,7 @@ public class AccidentController {
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident, @RequestParam(name = "type.id") int id,
-                         @RequestParam List<Integer> rIds, Model model) {
-        accident.setType(accidentTypeService.findById(id).get());
+    public String update(@ModelAttribute Accident accident, @RequestParam List<Integer> rIds, Model model) {
         Set<Rule> rules = new HashSet<>();
         for (Integer rId : rIds) {
             rules.add(ruleService.findById(rId).get());
