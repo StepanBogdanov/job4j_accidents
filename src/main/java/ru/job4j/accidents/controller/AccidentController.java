@@ -32,8 +32,7 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, @RequestParam Set<Integer> rIds) {
-        accidentService.setRules(accident, rIds);
-        accidentService.save(accident);
+        accidentService.save(accident, rIds);
         return "redirect:/index";
     }
 
@@ -52,8 +51,7 @@ public class AccidentController {
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident, @RequestParam Set<Integer> rIds, Model model) {
-        accidentService.setRules(accident, rIds);
-        var isUpdated = accidentService.update(accident);
+        var isUpdated = accidentService.update(accident, rIds);
         if (!isUpdated) {
             model.addAttribute("message", "Не удалось обновить инцидент с данным ID");
             return "error/404";
