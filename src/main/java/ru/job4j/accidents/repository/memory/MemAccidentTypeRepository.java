@@ -1,14 +1,14 @@
-package ru.job4j.accidents.repository;
+package ru.job4j.accidents.repository.memory;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class MemAccidentTypeRepository implements AccidentTypeRepository {
 
     private AtomicInteger nextId = new AtomicInteger(1);

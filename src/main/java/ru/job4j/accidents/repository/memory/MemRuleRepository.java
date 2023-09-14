@@ -1,7 +1,8 @@
-package ru.job4j.accidents.repository;
+package ru.job4j.accidents.repository.memory;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,7 +11,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class MemRuleRepository implements RuleRepository {
 
     private AtomicInteger nextId = new AtomicInteger(1);
