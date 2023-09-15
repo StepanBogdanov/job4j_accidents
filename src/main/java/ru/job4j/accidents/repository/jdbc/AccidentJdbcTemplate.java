@@ -25,17 +25,23 @@ public class AccidentJdbcTemplate implements AccidentRepository {
 
     private static final String INSERT_INTO_ACCIDENTS = "INSERT INTO accidents (name, text, address, accident_type_id) "
             + "VALUES (?, ?, ?, ?) RETURNING id";
+
     private static final String INSERT_INTO_ACCIDENTS_RULES = "INSERT INTO accidents_rules (accident_id, rule_id) "
             + "VALUES (?, ?)";
+
     private static final String DELETE_FROM_ACCIDENTS_RULES = "DELETE FROM accidents_rules WHERE accident_id = ?";
+
     private static final String UPDATE_ACCIDENTS = "UPDATE accidents SET name = ?, text = ?, address = ?, "
             + "accident_type_id = ? WHERE id = ?";
+
     private static final String DELETE_FROM_ACCIDENTS = "DELETE FROM accidents WHERE id = ?";
+
     private static final String SELECT_ALL_FROM_ACCIDENTS = "SELECT ac.id, ac.name, ac.text, ac.address, "
             + "ac.accident_type_id, at.name AS type_name, ar.rule_id, r.name AS rule_name FROM accidents AS ac "
             + "LEFT JOIN accident_types AS at ON ac.accident_type_id = at.id "
             + "LEFT JOIN accidents_rules AS ar ON ac.id = ar.accident_id "
             + "LEFT JOIN rules AS r ON ar.rule_id = r.id";
+
     private static final String SELECT_FROM_ACCIDENTS_BY_ID = "SELECT ac.id, ac.name, ac.text, ac.address, "
             + "ac.accident_type_id, at.name AS type_name, ar.rule_id, r.name AS rule_name FROM accidents AS ac "
             + "LEFT JOIN accident_types AS at ON ac.accident_type_id = at.id "
@@ -75,6 +81,9 @@ public class AccidentJdbcTemplate implements AccidentRepository {
     @Override
     public boolean delete(int id) {
         var result = jdbc.update(DELETE_FROM_ACCIDENTS, id);
+        if (result > 0) {
+            jdbc.update(DELETE_FROM_ACCIDENTS_RULES, id);
+        }
         return result > 0;
     }
 
