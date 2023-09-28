@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Repository
 @AllArgsConstructor
 public class RuleJdbcTemplate implements RuleRepository {
 

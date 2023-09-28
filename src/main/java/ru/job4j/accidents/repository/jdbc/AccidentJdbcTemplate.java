@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Repository
 @AllArgsConstructor
 public class AccidentJdbcTemplate implements AccidentRepository {
 

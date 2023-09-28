@@ -9,7 +9,6 @@ import ru.job4j.accidents.repository.AccidentTypeRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-@Repository
 @AllArgsConstructor
 public class AccidentTypeJdbcTemplate implements AccidentTypeRepository {
 
