@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentRepository;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
-import ru.job4j.accidents.repository.RuleRepository;
+import ru.job4j.accidents.repository.data.AccidentDataRepository;
+import ru.job4j.accidents.repository.data.AccidentTypeDataRepository;
+import ru.job4j.accidents.repository.data.RuleDataRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,37 +17,45 @@ import java.util.Set;
 @AllArgsConstructor
 public class SimpleAccidentService implements AccidentService {
 
-    private final AccidentRepository accidentRepository;
-    private final AccidentTypeRepository accidentTypeRepository;
-    private final RuleRepository ruleRepository;
+    private final AccidentDataRepository accidentRepository;
+    private final AccidentTypeDataRepository accidentTypeRepository;
+    private final RuleDataRepository ruleRepository;
 
     @Override
     public Accident save(Accident accident, Set<Integer> ids) {
         accident.setType(accidentTypeRepository.findById(accident.getType().getId()).get());
-        accident.setRules(ruleRepository.findByIds(ids));
+        accident.setRules(findByIds(ids));
         return accidentRepository.save(accident);
     }
 
     @Override
     public boolean update(Accident accident, Set<Integer> ids) {
-        accident.setType(accidentTypeRepository.findById(accident.getType().getId()).get());
-        accident.setRules(ruleRepository.findByIds(ids));
-        return accidentRepository.update(accident);
+        save(accident, ids);
+        return true;
     }
 
     @Override
     public boolean delete(int id) {
-        return accidentRepository.delete(id);
+        accidentRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public Collection<Accident> findAll() {
-        return accidentRepository.findAll();
+        return (Collection<Accident>) accidentRepository.findAll();
     }
 
     @Override
     public Optional<Accident> findById(int id) {
         return accidentRepository.findById(id);
+    }
+
+    private Set<Rule> findByIds(Set<Integer> ids) {
+        Set<Rule> rules = new HashSet<>();
+        for (Rule rule : ruleRepository.findAllById(ids)) {
+            rules.add(rule);
+        }
+        return rules;
     }
 
 }

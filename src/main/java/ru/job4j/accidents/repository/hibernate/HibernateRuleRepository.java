@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-@Repository
 @AllArgsConstructor
 public class HibernateRuleRepository implements RuleRepository {
 
