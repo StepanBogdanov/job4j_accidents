@@ -14,7 +14,7 @@ public interface AccidentService {
 
     boolean delete(int id);
 
-    Collection<Accident> findAll();
+    Iterable<Accident> findAll();
 
     Optional<Accident> findById(int id);
 

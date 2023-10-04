@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AccidentTypeService {
 
-    Collection<AccidentType> findAll();
+    Iterable<AccidentType> findAll();
 
     Optional<AccidentType> findById(int id);
 }

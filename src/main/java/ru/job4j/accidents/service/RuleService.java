@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RuleService {
 
-    Collection<Rule> findAll();
+    Iterable<Rule> findAll();
 
     Optional<Rule> findById(int id);
 }
