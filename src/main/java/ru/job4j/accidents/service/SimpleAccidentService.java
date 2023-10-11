@@ -22,7 +22,7 @@ public class SimpleAccidentService implements AccidentService {
     @Override
     public Accident save(Accident accident, Set<Integer> ids) {
         accident.setType(accidentTypeRepository.findById(accident.getType().getId()).get());
-        accident.setRules(ruleRepository.findByIds(ids));
+        accident.setRules(ruleRepository.findByIdIn(ids));
         return accidentRepository.save(accident);
     }
 
