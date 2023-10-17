@@ -25,6 +25,9 @@
         </div>
     </nav>
     <div class="container">
+        <div>
+            <p th:if="${userError}" style="color:red">Пользователь с таким именем уже существует</p>
+        </div>
         <form class="mt-3" th:action="@{/reg}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="username" class="form-label"><b>Username</b></label>
