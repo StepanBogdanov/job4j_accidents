@@ -10,13 +10,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.job4j.accidents.model.User;
 import ru.job4j.accidents.repository.data.AuthorityRepository;
 import ru.job4j.accidents.repository.data.UserRepository;
+import ru.job4j.accidents.service.UserService;
+
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 public class RegController {
 
     private final PasswordEncoder encoder;
-    private final UserRepository users;
+    private final UserService userService;
     private final AuthorityRepository authorities;
 
     @PostMapping("/reg")
@@ -24,9 +27,7 @@ public class RegController {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        try {
-            users.save(user);
-        } catch (Exception e) {
+        if (userService.save(user).isEmpty()) {
             redirectAttributes.addFlashAttribute("userError", true);
             return "redirect:/reg";
         }
