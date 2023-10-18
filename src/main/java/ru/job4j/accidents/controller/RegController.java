@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.job4j.accidents.model.User;
 import ru.job4j.accidents.repository.data.AuthorityRepository;
-import ru.job4j.accidents.repository.data.UserRepository;
 import ru.job4j.accidents.service.UserService;
-
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
