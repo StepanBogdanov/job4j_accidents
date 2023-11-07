@@ -19,7 +19,7 @@ public class SimpleUserService implements UserService {
             userRepository.save(user);
             return Optional.of(user);
         } catch (Exception e) {
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 }
