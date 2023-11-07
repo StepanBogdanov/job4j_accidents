@@ -14,7 +14,9 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class JdbcConfig {
 
+    /*
     @Bean
+     */
     public DataSource ds(@Value("${jdbc.driver}") String driver,
                          @Value("${jdbc.url}") String url,
                          @Value("${jdbc.username}") String username,
@@ -27,7 +29,9 @@ public class JdbcConfig {
         return ds;
     }
 
+    /*
     @Bean
+     */
     public JdbcTemplate jdbc(DataSource ds) {
         return new JdbcTemplate(ds);
     }
